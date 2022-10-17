@@ -1,0 +1,292 @@
+import uuid
+import pymysql
+import json
+
+
+class Config:
+    def __init__(self):
+        con_params = self.__read_config()
+        self.db_conn = pymysql.connect(host=con_params["host"],
+                             user=con_params["user"],
+                             password=con_params["password"],
+                             db=con_params["db"],
+                             charset=con_params["charset"],
+                             cursorclass=pymysql.cursors.DictCursor)
+
+    def __read_config(self):
+        try:
+            f = open("config.txt")
+            data = f.read()
+            return dict(json.loads(data))
+        finally:
+            f.close()
+
+
+class Doctor:
+    def __init__(self, doctor_id=""):
+        if doctor_id == "":
+            self.__doctor_id = str(uuid.uuid4())
+            try:
+                config = Config()
+                con = config.db_conn
+                with con.cursor() as cur:
+                    qry = 'INSERT INTO doctor (doctor_id)'
+                    qry = qry + 'VALUES(%s)'
+                    print(qry)
+                    cur.execute(qry, self.__doctor_id)
+                    con.commit()
+            finally:
+                pass
+        else:
+            self.__doctor_id = doctor_id
+            try:
+                config = Config()
+                con = config.db_conn
+                with con.cursor() as cur:
+                    qry = "SELECT * FROM doctor WHERE doctor_uuid = '" + doctor_id + "'"
+                    print(qry)
+                    cur.execute(qry)
+                    rows = cur.fetchall()
+                    for row in rows:
+                        self.__doctor_id = row["doctor_id"]
+            finally:
+                con.close()
+
+    def get_doctor_id(self):
+        return self.__doctor_id
+
+    def set_doctor_id(self, doctor_id):
+        self.__doctor_id = doctor_id
+        try:
+            config = Config()
+            con = config.db_conn
+            with con.cursor() as cur:
+                qry = 'UPDATE doctor SET doctor_uuid = %s;'
+                print(qry)
+                cur.execute(qry, self.__doctor_id)
+                con.commit()
+        finally:
+            con.close()
+
+    def to_json(self):
+        fields_data = {
+            "doctor_id": self.__doctor_id
+        }
+        return json.dump(fields_data)
+
+
+class Patient:
+    def __init__(self, patient_id=""):
+        if patient_id == "":
+            self.__patient_id = str(uuid.uuid4())
+            try:
+                config = Config()
+                con = config.db_conn
+                with con.cursor() as cur:
+                    qry = 'INSERT INTO patient (patient_id)'
+                    qry = qry + 'VALUES(%s)'
+                    print(qry)
+                    cur.execute(qry, self.__patient_id)
+                    con.commit()
+            finally:
+                pass
+        else:
+            self.__patient_id = patient_id
+            try:
+                config = Config()
+                con = config.db_conn
+                with con.cursor() as cur:
+                    qry = "SELECT * FROM patient WHERE patient_uuid = '" + patient_id + "'"
+                    print(qry)
+                    cur.execute(qry)
+                    rows = cur.fetchall()
+                    for row in rows:
+                        self.__diagnosis_id = row["patient_id"]
+            finally:
+                pass
+
+    def get_patient(self):
+        return self.__patient_id
+
+    def set_paitent_id(self, patient_id):
+        self.__patient_id = patient_id
+        try:
+            config = Config()
+            con = config.db_conn
+            with con.cursor() as cur:
+                qry = 'UPDATE patient SET patient_uuid = %s;'
+                print(qry)
+                cur.execute(qry, self.__patient_id)
+                con.commit()
+        finally:
+            pass
+
+    def to_json(self):
+        fields_data = {
+            "patient_id": self.__patient_id
+        }
+        return json.dump(fields_data)
+
+
+class Visit:
+    def __init__(self, visit_id=""):
+        if visit_id == "":
+            self.__visit_id = str(uuid.uuid4())
+            try:
+                config = Config()
+                con = config.db_conn
+                with con.cursor() as cur:
+                    qry = 'INSERT INTO visit (visit_id)'
+                    qry = qry + 'VALUES(%s)'
+                    print(qry)
+                    cur.execute(qry, self.__visit_id)
+                    con.commit()
+            finally:
+                pass
+        else:
+            self.__visit_id = visit_id
+            try:
+                config = Config()
+                con = config.db_conn
+                with con.cursor() as cur:
+                    qry = "SELECT * FROM visit WHERE visit_uuid = '" + visit_id + "'"
+                    print(qry)
+                    cur.execute(qry)
+                    rows = cur.fetchall()
+                    for row in rows:
+                        self.__visit_id = row["visit_id"]
+            finally:
+                pass
+
+    def get_visit_id(self):
+        return self.__visit_id
+
+    def set_visit_id(self, visit_id):
+        self.__visit_id = visit_id
+        try:
+            config = Config()
+            con = config.db_conn
+            with con.cursor() as cur:
+                qry = 'UPDATE visit SET visit_uuid = %s;'
+                print(qry)
+                cur.execute(qry, self.__visit_id)
+                con.commit()
+        finally:
+            pass
+
+    def to_json(self):
+        fields_data = {
+            "visit_id": self.__visit_id
+        }
+        return json.dump(fields_data)
+
+
+class Diagnosis:
+    def __init__(self, diagnosis_id=""):
+        if doctor_id == "":
+            self.__diagnosis_id = str(uuid.uuid4())
+            try:
+                config = Config()
+                con = config.db_conn
+                with con.cursor() as cur:
+                    qry = 'INSERT INTO diagnosis (diagnosis_id)'
+                    qry = qry + 'VALUES(%s)'
+                    print(qry)
+                    cur.execute(qry, self.__diagnosis_id)
+                    con.commit()
+            finally:
+                con.close()
+        else:
+            self.__diagnosis_id = diagnosis_id
+            try:
+                config = Config()
+                con = config.db_conn
+                with con.cursor() as cur:
+                    qry = "SELECT * FROM diagnosis WHERE diagnosis_uuid = '" + diagnosis_id + "'"
+                    print(qry)
+                    cur.execute(qry)
+                    rows = cur.fetchall()
+                    for row in rows:
+                        self.__diagnosis_id = row["diagnosis_id"]
+            finally:
+                con.close()
+
+    def get_diagnosis_id(self):
+        return self.__diagnosis_id
+
+    def set_diagnosis_id(self, patient_id):
+        self.__diagnosis_id = patient_id
+        try:
+            config = Config()
+            con = config.db_conn
+            with con.cursor() as cur:
+                qry = 'UPDATE diagnosis SET diagnosis_uuid = %s;'
+                print(qry)
+                cur.execute(qry, self.__diagnosis_id)
+                con.commit()
+        finally:
+            con.close()
+
+    def to_json(self):
+        fields_data = {
+            "diagnosis_id": self.__diagnosis_id
+        }
+        return json.dump(fields_data)
+
+
+class Procedure:
+    def __init__(self, procedure_id=""):
+        if procedure_id == "":
+            self.__procedure_id = str(uuid.uuid4())
+            try:
+                config = Config()
+                con = config.db_conn
+                with con.cursor() as cur:
+                    qry = 'INSERT INTO procedure (procedure_id)'
+                    qry = qry + 'VALUES(%s)'
+                    print(qry)
+                    cur.execute(qry, self.__procedure_id)
+                    con.commit()
+            finally:
+                con.close()
+        else:
+            self.__procedure_id = procedure_id
+            try:
+                config = Config()
+                con = config.db_conn
+                with con.cursor() as cur:
+                    qry = "SELECT * FROM procedure WHERE procedure_uuid = '" + procedure_id + "'"
+                    print(qry)
+                    cur.execute(qry)
+                    rows = cur.fetchall()
+                    for row in rows:
+                        self.__procedure_id = row["procedure_id"]
+            finally:
+                con.close()
+
+    def get_procedure_id(self):
+        return self.__procedure_id
+
+    def set_procedure_id(self, procedure_id):
+        self.__procedure_id = procedure_id
+        try:
+            config = Config()
+            con = config.db_conn
+            with con.cursor() as cur:
+                qry = 'UPDATE procedure SET procedure_uuid = %s;'
+                print(qry)
+                cur.execute(qry, self.__procedure_id)
+                con.commit()
+        finally:
+            con.close()
+
+    def to_json(self):
+        fields_data = {
+            "procedure_id": self.__procedure_id
+        }
+        return json.dump(fields_data)
+
+
+visit = Visit()
+print(visit.to_json())
+
