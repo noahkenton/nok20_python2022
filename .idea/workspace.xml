@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="775f6402-739b-4afa-9aa0-9059f5558c0f" name="Changes" comment=".sql connit">
+    <list default="true" id="775f6402-739b-4afa-9aa0-9059f5558c0f" name="Changes" comment="major commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignment2/assignment2_database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/assignment2/assignment2_database.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assignment2/emr" beforeDir="false" afterPath="$PROJECT_DIR$/assignment2/emr" afterDir="false" />
@@ -107,7 +107,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666028883216</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="major commit">
+      <created>1666062499233</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1666062499233</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -126,7 +133,8 @@
     <MESSAGE value="commit" />
     <MESSAGE value="commit directory" />
     <MESSAGE value=".sql connit" />
-    <option name="LAST_COMMIT_MESSAGE" value=".sql connit" />
+    <MESSAGE value="major commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="major commit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

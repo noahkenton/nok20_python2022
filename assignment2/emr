@@ -24,6 +24,8 @@ class Config:
 
 class Doctor:
     def __init__(self, doctor_id="", f_name="", l_name=""):
+        self.__fist_name = f_name
+        self.__last_name = l_name
         if doctor_id == "":
             self.__doctor_id = str(uuid.uuid4())
             try:
@@ -33,7 +35,7 @@ class Doctor:
                     qry = 'INSERT INTO doctor (doctor_uuid, first_name, last_name)'
                     qry = qry + 'VALUES(%s, %s, %s)'
                     print(qry)
-                    cur.execute(qry, self.__doctor_id, self.__fist_name, self.__last_name)
+                    cur.execute(qry, (self.__doctor_id, self.__fist_name, self.__last_name))
                     con.commit()
             finally:
                 pass
@@ -53,9 +55,6 @@ class Doctor:
                         self.__last_name = row["last_name"]
             finally:
                 con.close()
-
-        self.__fist_name = f_name
-        self.__last_name = l_name
 
     def get_first_name(self):
         return self.__fist_name
@@ -97,11 +96,13 @@ class Doctor:
             "first_name": self.__fist_name,
             "last_name": self.__last_name
         }
-        return json.dump(fields_data)
+        return json.dumps(fields_data)
 
 
 class Patient:
     def __init__(self, patient_id="", f_name="", l_name="", symptoms=""):
+        self.__fist_name = f_name
+        self.__last_name = l_name
         self.__symptoms = symptoms
         if patient_id == "":
             self.__patient_id = str(uuid.uuid4())
@@ -112,7 +113,7 @@ class Patient:
                     qry = 'INSERT INTO patient (patient_uuid, first_name, last_name, symptoms)'
                     qry = qry + 'VALUES(%s, %s, %s, %s)'
                     print(qry)
-                    cur.execute(qry, self.__patient_id, self.__fist_name, self.__last_name, self.__symptoms)
+                    cur.execute(qry, (self.__patient_id, self.__fist_name, self.__last_name, self.__symptoms))
                     con.commit()
             finally:
                 pass
@@ -133,8 +134,6 @@ class Patient:
                         self.__symptoms = row["symptoms"]
             finally:
                 pass
-        self.__fist_name = f_name
-        self.__last_name = l_name
 
     def get_first_name(self):
         return self.__fist_name
@@ -193,11 +192,12 @@ class Patient:
             "last_name": self.__last_name,
             "symptoms": self.__symptoms
         }
-        return json.dump(fields_data)
+        return json.dumps(fields_data)
 
 
 class Visit:
     def __init__(self, visit_id="", visit_date=""):
+        self.__visit_date = visit_date
         if visit_id == "":
             self.__visit_id = str(uuid.uuid4())
             try:
@@ -227,7 +227,6 @@ class Visit:
             finally:
                 pass
 
-        self.__visit_date = visit_date
 
     def get_visit_date(self):
         return self.__visit_date
@@ -250,12 +249,13 @@ class Visit:
             "visit_id": self.__visit_id,
             "visit_date": self.__visit_date
         }
-        return json.dump(fields_data)
+        return json.dumps(fields_data)
 
 
 class Diagnosis:
     def __init__(self, diagnosis_id="", diagnosis=""):
-        if doctor_id == "":
+        self.__diagnosis = diagnosis
+        if diagnosis_id == "":
             self.__diagnosis_id = str(uuid.uuid4())
             try:
                 config = Config()
@@ -264,7 +264,7 @@ class Diagnosis:
                     qry = 'INSERT INTO diagnosis (diagnosis_uuid, diagnosis)'
                     qry = qry + 'VALUES(%s, %s)'
                     print(qry)
-                    cur.execute(qry, self.__diagnosis_id, self.__diagnosis)
+                    cur.execute(qry, (self.__diagnosis_id, self.__diagnosis))
                     con.commit()
             finally:
                 con.close()
@@ -279,12 +279,10 @@ class Diagnosis:
                     cur.execute(qry)
                     rows = cur.fetchall()
                     for row in rows:
-                        self.__diagnosis_id = row["diagnosis_id"]
+                        self.__diagnosis_id = row["diagnosis_uuid"]
                         self.__diagnosis_name = row["diagnosis_name"]
             finally:
                 con.close()
-
-        self.__diagnosis = diagnosis
 
     def get_diagnosis(self):
         return self.__diagnosis
@@ -307,7 +305,7 @@ class Diagnosis:
             "diagnosis_id": self.__diagnosis_id,
             "diagnosis": self.__diagnosis
         }
-        return json.dump(fields_data)
+        return json.dumps(fields_data)
 
 
 class Procedure:
@@ -319,7 +317,7 @@ class Procedure:
                 config = Config()
                 con = config.db_conn
                 with con.cursor() as cur:
-                    qry = 'INSERT INTO procedure (procedure_uuid, procedure_name)'
+                    qry = 'INSERT INTO procedure_ (procedure_uuid, procedure_name)'
                     qry = qry + 'VALUES(%s, %s)'
                     print(qry)
                     cur.execute(qry, (self.__procedure_id, self.__procedure_name))
@@ -332,12 +330,12 @@ class Procedure:
                 config = Config()
                 con = config.db_conn
                 with con.cursor() as cur:
-                    qry = "SELECT * FROM procedure WHERE procedure_uuid = '" + procedure_id + "'"
+                    qry = "SELECT * FROM procedure_ WHERE procedure_uuid = '" + procedure_id + "'"
                     print(qry)
                     cur.execute(qry)
                     rows = cur.fetchall()
                     for row in rows:
-                        self.__procedure_id = row["procedure_id"]
+                        self.__procedure_id = row["procedure_uuid"]
                         self.__procedure_name = row["procedure_name"]
             finally:
                 con.close()
@@ -363,7 +361,7 @@ class Procedure:
             "procedure_id": self.__procedure_id,
             "procedure_name": self.__procedure_name
         }
-        return json.dump(fields_data)
+        return json.dumps(fields_data)
 
 
 proc = Procedure(procedure_id="", p_name="liver transplant")
