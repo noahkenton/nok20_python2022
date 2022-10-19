@@ -1,0 +1,7 @@
+{
+    "host" : "67.205.163.33",
+    "user" : "nok20",
+    "password": "InfSci1500_4368846",
+    "db": "nok20",
+    "charset": "utf8mb4"
+}
