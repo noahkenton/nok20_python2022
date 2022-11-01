@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="775f6402-739b-4afa-9aa0-9059f5558c0f" name="Changes" comment="major commit 2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assignment2/emr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assignment3/emr.py" beforeDir="false" afterPath="$PROJECT_DIR$/assignment3/emr.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
