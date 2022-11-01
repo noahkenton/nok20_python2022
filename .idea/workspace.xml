@@ -39,7 +39,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/assignment2/emr" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/assignment2" />
   </component>
   <component name="RunManager">
     <configuration name="emr" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">

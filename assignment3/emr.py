@@ -485,24 +485,28 @@ def index():
     return json.dumps(dict)
 
 
-app.run()
+# app.run()
 
 
 class Tester(unittest.TestCase):
+    # run unit test 1 select doctor with name Rob
     def select_doctor(self):
         fname = Doctor(f_name="Rob")
         self.run(fname)
 
     def update_doctor_name(self):
+        # update last_name value of doctor
         re_name = Doctor(f_name="Rob")
         re_name.set_last_name(l_name="Stark")
         self.run(re_name)
 
     def new_doctor(self):
+        # create new doctor entry
         new_entry = Doctor(f_name="Tony", l_name="Stark")
-        self.run(print(new_entry.to_json()))
+        self.run(new_entry)
 
     def furlough(self):
+        # delete doctor with given name from doctor table
         unlucky_doc = "Tony"
         try:
             config = Config()
